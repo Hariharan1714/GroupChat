@@ -65,3 +65,37 @@ app.get('/messages', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// server.js
+
+// ... (previous code)
+
+// Serve the navbar HTML
+app.get('/navbar', (req, res) => {
+  res.sendFile(__dirname + '/public/navbar.html');
+});
+
+// Handle GET request for "/contactus" to show the Contact Us form
+app.get('/contactus', (req, res) => {
+  res.sendFile(__dirname + '/public/contactus.html');
+});
+
+// Handle POST request for "/contactus" to process the form data and redirect to the success page
+app.post('/contactus', (req, res) => {
+  const { name, email } = req.body;
+  // Process the form data as needed (e.g., store it, send notifications, etc.)
+  res.redirect('/success');
+});
+
+// Handle GET request for "/success" to show the success message
+app.get('/success', (req, res) => {
+  res.send('Form successfully filled');
+});
+
+// ... (previous code)
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
