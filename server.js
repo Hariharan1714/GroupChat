@@ -5,6 +5,8 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const contactusController = require('./contactusController');
+const successController = require('./successController');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public')); // Serve static files (e.g., HTML, CSS) from a "public" directory
@@ -98,4 +100,19 @@ app.get('/success', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+// Handle GET request for /contactus and /success routes
+app.get('/contactus', contactusController.showContactUsForm);
+app.get('/success', successController.showSuccessMessage);
+
+// Handle POST request for /contactus route
+app.post('/contactus', contactusController.processContactUsForm);
+
+// Handle 404 error
+app.use((req, res, next) => {
+  res.status(404).send('Error 404: Page Not Found');
+});
+
 
